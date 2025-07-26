@@ -1,0 +1,125 @@
+<div class="container-fluid bg-light min-vh-100">
+    <app-header [header]="label"></app-header>
+    <div class="container bg-white rounded-4 p-3 shadow-sm mt-4">
+        <h3 class="mb-4 fw-semibold text-primary">Select Teams</h3>
+        <div class="row g-4 mb-2 d-flex flex-column align-items-center">
+            <div class="col-md-4">
+                <div class="card text-center p-4 border-0 shadow-sm rounded-4 team-select hover-scale"
+                    data-bs-toggle="modal" data-bs-target="#selectteam" (click)="open(teamModal,1,'')">
+                    <img [src]="firstteam ? firstteam.image : '../../../assets/images/team.png'"
+                        [ngStyle]="firstteam ? {'border':'1px solid #0d6efd'} : {}" alt="Team A"
+                        class="rounded-circle mx-auto mb-3" style="width: 100px; height: 100px; object-fit: cover;" />
+                    <h5 class="fw-bold text-dark">{{firstteam ? firstteam.name : 'Team A'}}</h5>
+                </div>
+                <div class="mt-2 text-center" *ngIf="firstteam" (click)="open(squadModal,firstteam?.ID,'first')">
+                    <div class="btn btn-primary"> <img src="../../../assets/images/white-team.png" style="width: 20px;"
+                            alt="" srcset=""> ADD SQUAD {{firstSqaud.length > 0 ? firstSqaud.length : ''}}</div>
+                </div>
+            </div>
+            <p class="text-center fw-bold" style="font-size: x-large;">VS</p>
+            <div class="col-md-4">
+                <div class="card text-center p-4 border-0 shadow-sm rounded-4 team-select hover-scale"
+                    data-bs-toggle="modal" data-bs-target="#selectteam" (click)="open(teamModal,2,'')">
+                    <img [src]="secondteam ? secondteam.image : '../../../assets/images/team.png'"
+                        [ngStyle]="secondteam ? {'border':'1px solid #0d6efd'} : {}" alt="Team B"
+                        class="rounded-circle mx-auto mb-3" style="width: 100px; height: 100px; object-fit: cover;" />
+                    <h5 class="fw-bold text-dark">{{secondteam ? secondteam.name : 'Team A'}}</h5>
+                </div>
+                <div class="mt-2 text-center" *ngIf="secondteam" (click)="open(squadModal,secondteam?.ID,'second')">
+                    <div class="btn btn-primary"> <img src="../../../assets/images/white-team.png" style="width: 20px;"
+                            alt="" srcset=""> ADD SQUAD {{secondSqaud.length > 0 ? secondSqaud.length : ''}}</div>
+                </div>
+            </div>
+        </div>
+        <hr class="mb-4" />
+        <div class="row g-4">
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Overs</label>
+                <input type="number" [(ngModel)]="overs" class="form-control shadow-sm"  placeholder="Enter overs" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Ball Type</label>
+                <select class="form-select shadow-sm" [(ngModel)]="balltype">
+                    <option selected disabled>Select one</option>
+                    <option>Leather Ball</option>
+                    <option>Stumper Ball</option>
+                    <option>Tennis</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Ground</label>
+                <input type="text" class="form-control shadow-sm"  [(ngModel)]="ground" placeholder="Enter ground name" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Date/Time</label>
+                <input type="datetime-local" class="form-control shadow-sm" [(ngModel)]="datetime" placeholder="Enter ground name" />
+            </div>
+            <div>
+                <div class="btn btn-primary" (click)="createMatch()">Create </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Team Modal -->
+<ng-template #teamModal let-modal>
+    <div class="modal-header bg-primary text-white rounded-top-4">
+        <h5 class="modal-title" id="exampleModalLabel">Select a Team</h5>
+        <button type="button" class="btn-close btn-close-white" (click)="modal.close()"></button>
+    </div>
+    <div class="modal-body p-4">
+        <div class="row g-3">
+            @for (item of allteams; track $index) {
+            <div class="col-md-6">
+                <div class="card h-100 shadow-sm border-0 team-card hover-shadow" (click)="team(item)">
+                    <div class="d-flex align-items-center gap-3 p-3">
+                        <img [src]="item.image" class="rounded-circle"
+                            style="width: 60px; height: 60px; object-fit: cover;" alt="Team Image" />
+                        <div>
+                            <h6 class="mb-0 fw-bold">{{ item.name }}</h6>
+                            <small class="text-muted">{{ item.city }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary border-3" [routerLink]="['/add-team']" (click)="modal.close()"
+            routerLinkActive="router-link-active">Create a Team</button>
+    </div>
+</ng-template>
+<!-- Squad Modal-->
+<ng-template #squadModal let-modal>
+    <div class="modal-header bg-primary text-white rounded-top-4">
+        <h5 class="modal-title" id="exampleModalLabel">Add Members</h5>
+        <button type="button" class="btn-close btn-close-white" (click)="modal.close()"></button>
+    </div>
+    <div class="modal-body p-4">
+        <div class="row g-3">
+            <div class="col-md-6" *ngFor="let item of allsquad">
+                <div class="card h-100 shadow-sm border-0 team-card hover-shadow">
+                    <div class="d-flex align-items-center gap-3 p-3">
+                        <img [src]="item.profileurl" class="rounded-circle"
+                            style="width: 60px; height: 60px; object-fit: cover;" alt="Team Image" />
+                        <div>
+                            <h6 class="mb-0 fw-bold">{{ item.firstname }}</h6>
+                            <small class="text-muted">{{ item.lastname }}</small>
+                        </div>
+                        <div class="form-check ms-auto">
+                            <input class="form-check-input" [disabled]="isInOtherSquad(item)" [name]="item.playerId"
+                                (change)="squad(item)" type="checkbox" [value]="item.playerId"
+                                [checked]="isSelected(item)" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary border-3" (click)="submit()">Submit</button>
+        <button class="btn btn-primary border-3" [routerLink]="['/add-player']" (click)="modal.close()"
+            routerLinkActive="router-link-active">Add New Member</button>
+    </div>
+</ng-template>

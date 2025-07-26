@@ -1,0 +1,30 @@
+.select-team {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.team-card {
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    background-color: #f8f9fa;
+  }
+}
+::ng-deep .modal-content {
+  border-radius: 30px !important;
+}
+.hover-scale {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0.5rem 1.2rem rgba(0, 0, 0, 0.1);
+}
+.modal-body {
+  height: 500px;
+  overflow-y: scroll;
+}

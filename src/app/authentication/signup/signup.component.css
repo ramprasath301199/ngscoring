@@ -1,0 +1,22 @@
+.container-fluid {
+  padding: 0px;
+  overflow: hidden;
+}
+body {
+  background-color: #2f75dd;
+}
+.login-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(90deg, hsla(217, 100%, 50%, 1) 0%, hsla(186, 100%, 69%, 1) 100%);
+}
+.login-box {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 600px;
+}

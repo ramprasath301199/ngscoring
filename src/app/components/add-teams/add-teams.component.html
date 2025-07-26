@@ -1,0 +1,49 @@
+<div class="container-fluid bg-light min-vh-100">
+    <app-header [header]="label"></app-header>
+
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
+                    <h4 class="mb-4 text-primary fw-bold text-center">Add Team Info</h4>
+
+                    <form (ngSubmit)="submitTeam(teamForm)" #teamForm="ngForm">
+                        <!-- Name -->
+                        <div class="mb-3">
+                            <label for="name" class="form-label fw-semibold">Team/Player Name</label>
+                            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="team.name"
+                                placeholder="e.g. Royal Strikers" required />
+                        </div>
+
+                        <!-- Place -->
+                        <div class="mb-3">
+                            <label for="place" class="form-label fw-semibold">City/Place</label>
+                            <input type="text" class="form-control" id="place" name="place" [(ngModel)]="team.place"
+                                placeholder="e.g. Chennai" required />
+                        </div>
+
+                        <!-- Image URL -->
+                        <div class="mb-3">
+                            <label for="image" class="form-label fw-semibold">Team Logo / Player Image URL</label>
+                            <input type="text" class="form-control" id="image" name="image" [(ngModel)]="team.image"
+                                placeholder="Paste image URL" required />
+                            <small class="text-muted">Image from public URL (e.g. https://...jpg)</small>
+                        </div>
+
+                        <!-- Live Image Preview -->
+                        <div *ngIf="team.image" class="text-center my-3">
+                            <img [src]="team.image" alt="Preview" class="img-thumbnail"
+                                style="max-height: 150px; border-radius: 15px;" />
+                        </div>
+
+                        <!-- Submit -->
+                        <button class="btn btn-primary w-100 fw-semibold" [disabled]="!teamForm.form.valid">
+                            Save Team
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-loader [loading]="loader"></app-loader>

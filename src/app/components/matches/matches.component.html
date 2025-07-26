@@ -1,0 +1,45 @@
+<div class="container-fluid">
+    <div class="row g-4 m-4">
+        @for (item of matches; track $index) {
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="card shadow-sm border-0 h-100"
+                [routerLink]="getStatusClass(item.datetime) == 'bg-success' ? ['/scoring'] : null"
+                routerLinkActive="router-link-active">
+                <div class="card-body">
+                    <!-- Match Status -->
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <small class="text-muted">{{ item.datetime | date: 'medium' }}</small>
+                        <span class="badge rounded-pill px-3 py-2 text-uppercase fw-semibold"
+                            [ngClass]="getStatusClass(item.datetime)">
+                            {{
+                            getStatusClass(item.datetime) == 'bg-secondary'
+                            ? 'Pending'
+                            : getStatusClass(item.datetime) == 'bg-success'
+                            ? 'On Going'
+                            : 'Completed'
+                            }}
+                        </span>
+                    </div>
+
+                    <!-- Teams Images -->
+                    <div class="d-flex justify-content-center align-items-center gap-3 mb-3">
+                        <img [src]="item?.team1_info?.team?.image" class="team-logo" alt="Team 1" />
+                        <h5 class="mb-0 fw-bold">VS</h5>
+                        <img [src]="item?.team2_info?.team?.image" class="team-logo" alt="Team 2" />
+                    </div>
+
+                    <!-- Team Names -->
+                    <div class="d-flex justify-content-between px-3">
+                        <p class="fw-bold mb-0 text-center w-50 text-truncate">
+                            {{ item?.team1_info?.team?.name }}
+                        </p>
+                        <p class="fw-bold mb-0 text-center w-50 text-truncate">
+                            {{ item?.team2_info?.team?.name }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
