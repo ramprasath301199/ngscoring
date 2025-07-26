@@ -1,0 +1,68 @@
+<div class="container-fluid bg-light min-vh-100">
+    <app-header [header]="label"></app-header>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-10">
+            <form class="p-4 shadow-sm rounded bg-white" [formGroup]="playerform">
+                <h4 class="text-center fw-semibold mb-4">Create a Player</h4>
+
+                <div class="mb-3">
+                    <label class="form-label">First Name</label>
+                    <input type="text" class="form-control" formControlName="firstname"
+                        placeholder="Enter first name" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Last Name</label>
+                    <input type="text" class="form-control" formControlName="lastname" placeholder="Enter last name" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Mobile</label>
+                    <input type="tel" class="form-control" formControlName="mobile"
+                        placeholder="e.g. +1 555 123 4567" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Select Team</label>
+                    <select class="form-select" formControlName="team">
+                        <option selected>Select a team</option>
+                        @for (item of teamlist; track $index) {
+                        <option [value]="item.ID">{{item.name}}</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Profile URL</label>
+                    <textarea class="form-control" formControlName="profileurl" rows="2"
+                        placeholder="Paste image or profile URL here..."></textarea>
+                </div>
+
+                <div class="text-center my-2 fw-bold text-muted">OR</div>
+
+                <div class="mb-3">
+                    <label class="form-label">Upload Excel File</label>
+                    <input type="file" formControlName="file" (change)="onFileSelected($event)" class="form-control" />
+                </div>
+                <div>
+                    <p>
+                        Download Sample Excel:
+                        <a href="../../sample/generated_squad.xlsx" download="generated_squad.xlsx"
+                            class="text-primary fw-semibold">
+                            Click here
+                        </a>
+                    </p>
+                </div>
+                <div class="text-danger small mb-3">
+                    Note: You can upload an Excel file or create the player manually.
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary" (click)="submit()">Create Player</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<app-loader [loading]="loader"></app-loader>

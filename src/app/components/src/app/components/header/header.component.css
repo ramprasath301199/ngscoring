@@ -1,0 +1,58 @@
+/* Glass Effect Backgrounds */
+.glass-header,
+.glass-body {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 10px;
+  color: white;
+}
+
+/* Menu Styling */
+.menu-glass {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-glass li {
+  margin: 20px 0;
+  transition: transform 0.3s ease, background 0.3s ease;
+  border-radius: 8px;
+}
+
+.menu-glass li a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.menu-glass li a:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  transform: translateX(5px);
+}
+
+/* Active Link Styling */
+.menu-glass li a.active {
+  background-color: rgba(255, 255, 255, 0.25);
+  color: #ffcc00;
+}
+
+/* Custom White Close Button if needed */
+.btn-close-white {
+  filter: invert(1);
+}
+
+/* Optional: Back Button */
+.back-button:hover {
+  text-decoration: underline;
+  transform: translateX(-3px);
+  transition: all 0.3s ease;
+}
