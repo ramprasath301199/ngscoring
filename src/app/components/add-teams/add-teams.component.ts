@@ -27,7 +27,7 @@ export class AddTeamsComponent {
     this.loader = true;
     const payload = {
       name: this.team.name,
-      place: this.team.place,
+      city: this.team.place,
       image: this.team.image,
     };
     this.apiservice.createTeam(payload).subscribe(
